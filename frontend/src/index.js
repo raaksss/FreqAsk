@@ -9,6 +9,7 @@ import "assets/styles/tailwind.css";
 
 import Admin from "layouts/Admin.js";
 import Auth from "layouts/Auth.js";
+import Faq from "components/Faq";
 
 // views without layouts
 
@@ -25,6 +26,7 @@ ReactDOM.render(
       <Route path="/landing" exact component={Landing} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/" exact component={Index} />
+      <Route path="/freq-ask" exact component={Faq} />
       <Redirect from="*" to="/" />
     </Switch>
   </BrowserRouter>,
