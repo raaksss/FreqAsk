@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
@@ -8,37 +9,35 @@ const FAQItem = ({ question, answer }) => {
   return (
     <div className="mb-4">
       <button
-        className="flex justify-between w-full text-left px-4 py-2 bg-blueGray-200 text-blueGray-700 font-bold rounded focus:outline-none focus:bg-blueGray-300  hover:text-blue-600"
+        className="flex justify-between w-full text-left px-4 py-2 bg-blueGray-200 text-blueGray-700 font-bold rounded focus:outline-none focus:bg-blueGray-300 hover:text-blue-600"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{question}</span>
-        <span>{isOpen ? '▲' : '▼'}</span>
+        <span>{isOpen ? "▲" : "▼"}</span>
       </button>
-      {isOpen && <p className="mt-2 px-4 py-2 bg-blueGray-100 rounded">{answer}</p>}
+      {isOpen && (
+        <p className="mt-2 py-2 px-4 bg-blueGray-100 rounded text-left">{answer}</p>
+      )}
     </div>
   );
 };
 
-export default function FAQ() {
-  const faqData = [
-    {
-      question: "What is FreqAsk?",
-      answer: "FreqAsk is a platform designed to provide instant answers to your queries."
-    },
-    {
-      question: "How does it work?",
-      answer: "Simply type your question into the search bar, and our system will retrieve the most relevant answers for you."
-    },
-    {
-        question: "How does it work?",
-        answer: "Simply type your question into the search bar, and our system will retrieve the most relevant answers for you."
-      },
-      {
-        question: "How does it work?",
-        answer: "Simply type your question into the search bar, and our system will retrieve the most relevant answers for you."
-      },
-    // Add more FAQ items here
-  ];
+const FAQ = () => {
+  const [faqData, setFaqData] = useState([]);
+
+  useEffect(() => {
+    fetchFAQs();
+  }, []);
+
+  const fetchFAQs = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/faqs`);
+      console.log(response.data);
+      setFaqData(response.data);
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+    }
+  };
 
   return (
     <>
@@ -90,7 +89,11 @@ export default function FAQ() {
                   </p>
                   <div className="mt-6">
                     {faqData.map((item, index) => (
-                      <FAQItem key={index} question={item.question} answer={item.answer} />
+                      <FAQItem
+                        key={index}
+                        question={item.question}
+                        answer={item.answer}
+                      />
                     ))}
                   </div>
                 </div>
@@ -102,4 +105,6 @@ export default function FAQ() {
       <Footer />
     </>
   );
-}
+};
+
+export default FAQ;
