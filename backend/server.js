@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7000;
 frontend=process.env.FRONTEND_URL || 'http://localhost:3000';
 console.log(frontend)
 app.use(cors({ origin: frontend }));
