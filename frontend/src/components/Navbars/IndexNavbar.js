@@ -1,11 +1,14 @@
 /*eslint-disable*/
 import React from "react";
-import { Link } from "react-router-dom";
-// components
+import { Link, useNavigate } from "react-router-dom";
 
-import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
 
 export default function Navbar(props) {
+  const navigate = useNavigate();
+  const handleChatbotClick = () => {
+    navigate('/chatbot');
+  }
+
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
@@ -89,7 +92,7 @@ export default function Navbar(props) {
               <li className="flex items-center">
                 <button
                   className="hover:text-blueGray-700 bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-                  type="button"
+                  type="button" onClick={handleChatbotClick}
                 >
                   <i className="fa-brands fa-rocketchat far-fa"></i> ChatBot
                 </button>
