@@ -5,30 +5,23 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
 
-// layouts
+// Import the FAQPage component
+import FAQPage from "components/Freq/FaqList";
 import Faq from "components/Freq/Faq";
-
 // views without layouts
 import Index from "views/Index.js";
-import Installation from "components/Freq/HeaderPages/Installation";
-import PaperlessTicket from "components/Freq/HeaderPages/PaperlessTicket";
-import Rwallet from "components/Freq/HeaderPages/Rwallet";
-import Atvm from "components/Freq/HeaderPages/Atvm";
-import Booking from "components/Freq/HeaderPages/Booking";
-import AccountManagement from "components/Freq/HeaderPages/AccountManagement";
-
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Index />} />
       <Route path="/freq-ask" element={<Faq />} />
-      <Route path="/freq-ask/basic-installation-and-configuration" element={<Installation />} />
-      <Route path="/freq-ask/account-management-and-settings" element={<AccountManagement />} />
-      <Route path="/freq-ask/booking-and-managing-ticketing" element={<Booking />} />
-      <Route path="/freq-ask/paperless-ticketing" element={<PaperlessTicket />} />
-      <Route path="/freq-ask/rwallet" element={<Rwallet />} />
-      <Route path="/freq-ask/atvm" element={<Atvm />} />
+      <Route path="/freq-ask/basic-installation-and-configuration" element={<FAQPage pageTitle="Basic Installation and Configuration" apiEndpoint="basic-installation-and-configuration" />} />
+      <Route path="/freq-ask/account-management-and-settings" element={<FAQPage pageTitle="Account Management and Settings" apiEndpoint="account-management-and-settings" />} />
+      <Route path="/freq-ask/booking-and-managing-ticketing" element={<FAQPage pageTitle="Booking and Managing Ticketing" apiEndpoint="booking-and-managing-ticketing" />} />
+      <Route path="/freq-ask/paperless-ticketing" element={<FAQPage pageTitle="Paperless Ticketing" apiEndpoint="paperless-ticketing" />} />
+      <Route path="/freq-ask/rwallet" element={<FAQPage pageTitle="RWallet" apiEndpoint="rwallet" />} />
+      <Route path="/freq-ask/atvm" element={<FAQPage pageTitle="ATVM" apiEndpoint="atvm" />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </BrowserRouter>,

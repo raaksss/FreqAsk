@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import '../../assets/styles/index.css'
 
-const FAQItem = ({ question, answer }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const FAQItem = ({ question, answer, isOpen, toggleAccordion }) => {
   return (
-    <div className="mb-4">
+    <div className="faq-item mb-4">
       <button
-        className="flex justify-between w-full text-left px-4 py-2 bg-white text-blueGray-700 font-bold rounded focus:outline-none focus:bg-blueGray-300 hover:text-blue-600"
-        onClick={() => setIsOpen(!isOpen)}
+        className="faq-question"
+        onClick={toggleAccordion}
       >
         <span>{question}</span>
-        <span>{isOpen ? "▲" : "▼"}</span>
+        <span>
+          <FontAwesomeIcon icon={isOpen ? faAngleUp : faAngleDown} />
+        </span>
       </button>
       {isOpen && (
-        <p className="mt-2 py-2 px-4 bg-white rounded text-left">{answer}</p>
+        <p className="faq-answer">{answer}</p>
       )}
-   
     </div>
-
   );
 };
 
