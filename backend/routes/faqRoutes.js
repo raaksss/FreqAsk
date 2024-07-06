@@ -17,4 +17,5 @@ router.patch('/:id', faqController.getFAQ, faqController.updateFAQById);
 // Delete a FAQ by ID
 router.delete('/:id', faqController.deleteFAQById);
 
+
 module.exports = router;
