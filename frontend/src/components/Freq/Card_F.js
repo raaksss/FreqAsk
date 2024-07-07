@@ -9,32 +9,32 @@ const Card_F = ({ icon, title, description }) => {
     switch (title) {
       case 'Account Management and Settings':
         navigate('/freq-ask/account-management-and-settings', {
-          state: { title, description }
+          state: { title, description, categorySlug: 'account-management-and-settings' }
         });
         break;
       case 'Basic Installation and Configuration':
         navigate('/freq-ask/basic-installation-and-configuration', {
-          state: { title, description }
+          state: { title, description, categorySlug: 'basic-installation-and-configuration'}
         });
         break;
       case 'Booking and Managing Ticketing':
         navigate('/freq-ask/booking-and-managing-ticketing', {
-          state: { title, description }
+          state: { title, description, categorySlug: 'booking-and-managing-ticketing' }
         });
         break;
       case 'Paperless Ticketing':
         navigate('/freq-ask/paperless-ticketing', {
-          state: { title, description }
+          state: { title, description, categorySlug: 'paperless-ticketing' }
         });
         break;
       case 'R Wallet':
         navigate('/freq-ask/rwallet', {
-          state: { title, description }
+          state: { title, description, categorySlug: 'rwallet'  }
         });
         break;
       case 'ATVM [Smart Card]':
         navigate('/freq-ask/atvm', {
-          state: { title, description }
+          state: { title, description, categorySlug: 'atvm' }
         });
         break;
       default:

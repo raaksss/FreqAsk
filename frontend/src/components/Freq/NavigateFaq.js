@@ -34,8 +34,7 @@ const NavigateFaq = () => {
 </ul>
 
       </nav>
-      
-      {/* Card Details */}
+
       {title && description ? (
         <div>
           <div className="w-16 h-15.5 pl-4 mb-2">{icon}</div>
