@@ -11,8 +11,19 @@ const getFAQs = async (req, res) => {
 };
 
 const getFAQById = async (req, res) => {
-  res.json(res.faq);
-};
+    try {
+      const faq = await FAQ.findById(req.params.id);
+  
+      if (!faq) {
+        return res.status(404).json({ message: 'FAQ not found' });
+      }
+  
+      res.json(faq);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+  
 
 const createFAQ = async (req, res) => {
     const { question, answer, category } = req.body;
