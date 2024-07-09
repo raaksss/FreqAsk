@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import SearchBar from './SearchBar';
+import React from 'react';
 import SearchResultComponent from './SearchResultComponent';
 
-const SearchResult = () => {
-  const [results, setResults] = useState([]);
-
+const SearchResult = ({ results }) => {
   return (
     <div className="mt-4 container">
-      <SearchBar onSearch={setResults} />
-      <div className="card rounded p-4 bg-white">
+      <div className="rounded p-4 bg-white">
         <SearchResultComponent results={results} />
       </div>
     </div>

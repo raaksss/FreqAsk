@@ -3,15 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/index.css';
 import axios from 'axios';
+import SearchResult from './SearchResult';
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [noResults, setNoResults] = useState(false);
+  const [typingStarted, setTypingStarted] = useState(false);
 
   const handleSearch = async (e) => {
     const value = e.target.value;
     setQuery(value);
+
+    if (!typingStarted && value.length > 0) {
+      setTypingStarted(true);
+    } else if (typingStarted && value.length === 0) {
+      setTypingStarted(false);
+      setNoResults(false); // Reset noResults when input becomes empty
+      setResults([]); // Clear results when input becomes empty
+      return;
+    }
 
     if (value.length >= 2) {
       try {
@@ -52,15 +63,11 @@ const SearchBar = () => {
               onChange={handleSearch}
             />
           </div>
-          <ul>
-            {results.length > 0 ? (
-              results.map((faq) => (
-                <li key={faq._id}>{faq.question}</li>
-              ))
-            ) : (
-              noResults && query.length >= 10 && <p>We couldn't find any articles for: {query}</p>
-            )}
-          </ul>
+          {typingStarted && (
+            <>
+              <SearchResult results={results} />
+            </>
+          )}
         </div>
       </div>
     </div>
