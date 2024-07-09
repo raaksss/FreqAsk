@@ -8,4 +8,6 @@ const faqSchema = new mongoose.Schema({
   dateModified: { type: Date, default: Date.now },
 });
 
+faqSchema.index({ question: 'text', answer: 'text' });
+
 module.exports = mongoose.model('FAQ', faqSchema);

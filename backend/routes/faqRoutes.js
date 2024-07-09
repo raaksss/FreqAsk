@@ -9,7 +9,6 @@ router.get('/', faqController.getFAQs);
 
 router.get('/:categorySlug', faqController.getFAQsByCategorySlug);
 
-
 // GET a single FAQ by ID
 router.get('/faq/:id', faqController.getFAQById);
 
@@ -21,5 +20,9 @@ router.patch('/:id', faqController.updateFAQById);
 
 // Delete a FAQ by ID
 router.delete('/:id', faqController.deleteFAQById);
+
+//Search a FAQ
+router.get('/wocat/search', faqController.searchFAQs);
+
 
 module.exports = router;

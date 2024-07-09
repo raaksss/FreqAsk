@@ -93,6 +93,8 @@ const getFAQ = async (req, res, next) => {
   res.faq = faq;
   next();
 };
+
+
 const getCategoryNameFromSlug = (slug) => {
     switch (slug) {
       case 'basic-installation-and-configuration':
@@ -108,10 +110,10 @@ const getCategoryNameFromSlug = (slug) => {
       case 'atvm':
         return 'ATVM [Smart Card]';
       default:
-        return null; // Handle unknown slugs if needed
+        return null; 
     }
   };
-  
+
 const getFAQsByCategorySlug = async (req, res) => {
     const { categorySlug } = req.params;
   
@@ -143,6 +145,34 @@ const getFAQsByCategorySlug = async (req, res) => {
     }
   };
   
+  const searchFAQs = async (req, res) => {
+    try {
+      const { query } = req.query;
+      if (!query) {
+        console.log("Query parameter is missing");
+        return res.status(400).json({ error: 'Query parameter is required' });
+      }
+  
+      console.log("Search query received:", query);
+  
+      const faqs = await FAQ.find(
+        {
+          $text: {
+            $search: query,
+            $caseSensitive: false,
+          }
+        },
+        { score: { $meta: "textScore" } }
+      ).sort({ score: { $meta: "textScore" } });
+  
+      console.log("Search results found:", faqs);
+  
+      res.status(200).json(faqs);
+    } catch (error) {
+      console.error("Error occurred during search:", error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
   
 
 module.exports = {
@@ -152,5 +182,6 @@ module.exports = {
   updateFAQById,
   deleteFAQById,
   getFAQ,
-  getFAQsByCategorySlug
+  getFAQsByCategorySlug,
+  searchFAQs
 };
