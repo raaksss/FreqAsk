@@ -14,7 +14,7 @@ const SearchBar = () => {
     setQuery('');
     setResults([]);
     setNoResults(false);
-    setTypingStarted(false); // Clear typingStarted state on clear
+    setTypingStarted(false);
   };
 
   const handleSearch = async (e) => {

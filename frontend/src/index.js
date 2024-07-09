@@ -8,6 +8,7 @@ import "assets/styles/tailwind.css";
 import FaqList from "components/Freq/FaqList";
 import Faq from "components/Freq/Faq";
 import Index from "views/Index.js";
+import SearchRedirect from "components/Freq/SearchRedirect";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Route path="/" element={<Index />} />
       <Route path="/freq-ask" element={<Faq />} />
       <Route path="/freq-ask/:categorySlug" element={<FaqList />} />
+      <Route path="/freq-ask/search-results" element={<SearchRedirect />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </BrowserRouter>,

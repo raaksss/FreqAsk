@@ -46,26 +46,35 @@ const createFAQ = async (req, res) => {
     }
   };
   
+  const updateFAQById = async (req, res) => {
+    const updates = {};
 
-const updateFAQById = async (req, res) => {
-  if (req.body.question != null) {
-    res.faq.question = req.body.question;
-  }
-  if (req.body.answer != null) {
-    res.faq.answer = req.body.answer;
-  }
-  if (req.body.category != null) {
-    res.faq.category = req.body.category;
-  }
-  res.faq.dateModified = Date.now();
+    if (req.body.question) {
+      updates.question = req.body.question;
+    }
+    if (req.body.answer) {
+      updates.answer = req.body.answer;
+    }
+    if (req.body.category) {
+      updates.category = req.body.category;
+    }
 
-  try {
-    const updatedFAQ = await res.faq.save();
-    res.json(updatedFAQ);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
+    if (Object.keys(updates).length > 0) {
+      updates.dateModified = Date.now();
+    }
+  
+    try {
+      const updatedFAQ = await FAQ.findByIdAndUpdate(req.params.id, updates, { new: true });
+  
+      if (!updatedFAQ) {
+        return res.status(404).json({ message: 'FAQ not found' });
+      }
+      res.json(updatedFAQ);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  };
+  
 
 const deleteFAQById = async (req, res) => {
   try {
