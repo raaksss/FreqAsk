@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faX } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/index.css';
 import axios from 'axios';
 import SearchResult from './SearchResult';
@@ -11,6 +11,12 @@ const SearchBar = () => {
   const [noResults, setNoResults] = useState(false);
   const [typingStarted, setTypingStarted] = useState(false);
 
+  const handleClear = () => {
+    setQuery('');
+    setResults([]); 
+    setNoResults(false); 
+  };
+
   const handleSearch = async (e) => {
     const value = e.target.value;
     setQuery(value);
@@ -19,8 +25,8 @@ const SearchBar = () => {
       setTypingStarted(true);
     } else if (typingStarted && value.length === 0) {
       setTypingStarted(false);
-      setNoResults(false); // Reset noResults when input becomes empty
-      setResults([]); // Clear results when input becomes empty
+      setNoResults(false); 
+      setResults([]); 
       return;
     }
 
@@ -62,6 +68,7 @@ const SearchBar = () => {
               value={query}
               onChange={handleSearch}
             />
+            <FontAwesomeIcon icon={faX} className=" text-xs cursor-pointer text-gray-500 mr-3" />
           </div>
           {typingStarted && (
             <>
