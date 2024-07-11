@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 const SearchResultComponent = ({ results }) => {
-    const navigate=useNavigate();
-    
-    const handleClick=(faq)=>{
-      const updatedResults = [faq, ...results.filter(item => item._id !== faq._id)];
-      localStorage.setItem('searchResults', JSON.stringify(updatedResults));
-      navigate('/freq-ask/search-results');
-    }
+  const navigate = useNavigate();
+
+  const handleClick = (faq) => {
+    const updatedResults = [faq, ...results.filter(item => item._id !== faq._id)];
+    localStorage.setItem('searchResults', JSON.stringify(updatedResults));
+    navigate('/freq-ask/search-results');
+  };
 
   return (
     <div>
@@ -19,11 +20,9 @@ const SearchResultComponent = ({ results }) => {
           </div>
         ))
       ) : (
-        results.length === 0 && (
-          <p className="text-black-500">
-            No results found for this search.
-          </p>
-        )
+        <p className="text-black-500">
+          No results found for this search.
+        </p>
       )}
     </div>
   );

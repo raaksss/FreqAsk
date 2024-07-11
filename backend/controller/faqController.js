@@ -173,7 +173,6 @@ const getFAQsByCategorySlug = async (req, res) => {
         return res.status(400).json({ error: 'Query parameter is required' });
       }
   
-      console.log("Search query received:", query);
   
       const faqs = await FAQ.find(
         {
@@ -184,8 +183,7 @@ const getFAQsByCategorySlug = async (req, res) => {
         },
         { score: { $meta: "textScore" } }
       ).sort({ score: { $meta: "textScore" } });
-  
-      console.log("Search results found:", faqs);
+
   
       res.status(200).json(faqs);
     } catch (error) {

@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faX } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import SearchResult from './SearchResult';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [typingStarted, setTypingStarted] = useState(false);
+  const navigate = useNavigate();
 
   const handleClear = () => {
     setQuery('');
@@ -49,6 +51,16 @@ const SearchBar = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setNoResults(false);
+      setTypingStarted(false);
+      localStorage.setItem('searchResults', JSON.stringify(results));
+      navigate('/freq-ask/search-results');
+    }
+  };
+
   return (
     <div className="py-10">
       <div className="container mx-auto px-4">
@@ -67,6 +79,7 @@ const SearchBar = () => {
               style={{ border: 'none', boxShadow: 'none' }}
               value={query}
               onChange={handleSearch}
+              onKeyDown={handleKeyDown}
             />
             {query && (
               <FontAwesomeIcon

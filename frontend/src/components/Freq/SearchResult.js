@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 const SearchResult = ({ results }) => {
     const navigate=useNavigate();
-
+    
     const handleClick=()=>{
-        navigate('/freq-ask/search-results');
+      navigate('/freq-ask/search-results', { state: { results } });
     }
 
   return (
