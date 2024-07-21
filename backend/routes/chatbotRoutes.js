@@ -1,14 +1,8 @@
 
 const express = require('express');
 const router = express.Router();
+const ChatbotController = require('../controller/ChatbotController');
 
-router.post('/', async (req, res) => {
-    try {
-      console.log(req.body.history);
-      console.log(req.body.message);
+router.post('/', ChatbotController.HandleUserQueries);
 
-
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  });
+module.exports = router;

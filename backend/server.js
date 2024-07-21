@@ -1,9 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
 
 const faqRoutes = require('./routes/faqRoutes');
-const cors = require('cors');
+const chatbotRoutes = require('./routes/chatbotRoutes');
+
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -23,4 +26,13 @@ mongoose.connect(mongoURI)
   })
   .catch(err => console.error('Error connecting to database:', err));
 
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'rakshitamanocha09@gmail.com', 
+      pass: 'Rmrm@1234' 
+    }
+  });
+
 app.use('/api/faqs', faqRoutes);
+app.use('/api/chatbot', chatbotRoutes);
