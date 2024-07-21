@@ -6,6 +6,7 @@ import Footer from "components/Footers/Footer.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faQrcode, faTicket, faUser, faWrench, faWallet } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from "./SearchBar";
+import ChatBox from 'components/ChatBot/Chat';
 
 const FAQ = () => {
   return (
@@ -51,6 +52,7 @@ const FAQ = () => {
         </div>
       </main>
       <Footer />
+      <ChatBox />
     </>
   );
 };

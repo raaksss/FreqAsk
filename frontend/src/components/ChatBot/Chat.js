@@ -16,7 +16,6 @@ const ChatBox = () => {
   }, []);
 
   useEffect(() => {
-    // Scroll to bottom when messages update
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
@@ -28,17 +27,15 @@ const ChatBox = () => {
     e.preventDefault();
     if (input.trim() === '') return;
 
-    // Add user message to chat
     setMessages((prevMessages) => [...prevMessages, { text: input, type: 'self' }]);
     setInput('');
-    setLoading(true); // Start loading animation
+    setLoading(true);
 
     try {
       const response = await axios.post('http://localhost:5000/ask', {
         query: input
       });
 
-      // Update chat with the response from the server
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: response.data.answer, type: 'user' }
@@ -50,7 +47,7 @@ const ChatBox = () => {
         { text: 'There was an error processing your request.', type: 'user' }
       ]);
     } finally {
-      setLoading(false); // Stop loading animation
+      setLoading(false);
     }
   };
 
@@ -58,64 +55,77 @@ const ChatBox = () => {
     setChatVisible(!chatVisible);
   };
 
-  return (
-    <div id="body">
-      <div
-        id="chat-circle"
-        className="btn btn-raised"
-        onClick={handleChatToggle}
-      >
-        <div id="chat-overlay"></div>
-        <FontAwesomeIcon icon={faMessage} />
-      </div>
+  const handleEmailClick = (e) => {
+    e.preventDefault();
+    window.location.href = 'mailto:rakshitamanocha@gmail.com';
+  };
 
-      <div className={`chat-box ${chatVisible ? 'visible' : ''}`}>
-        <div className="chat-box-header">
-          Chat
-          <span className="chat-box-toggle" onClick={handleChatToggle}>
-            <FontAwesomeIcon icon={faX} size="xs" />
-          </span>
+  return (
+    <div>
+      <div id="body">
+        <div
+          id="chat-circle"
+          className="btn btn-raised"
+          onClick={handleChatToggle}
+        >
+          <div id="chat-overlay"></div>
+          <FontAwesomeIcon icon={faMessage} />
         </div>
-        <div className="chat-box-body">
-          <div className="chat-box-overlay"></div>
-          <div className="chat-logs">
-            {messages.map((msg, index) => (
-              <div key={index} className={`chat-msg ${msg.type}`}>
-                <span className="msg-avatar">
-                  {msg.type === 'user' && <FontAwesomeIcon icon={faRobot} className="icon" />}
-                </span>
-                <div className="cm-msg-text" dangerouslySetInnerHTML={{ __html: msg.text }} />
-              </div>
-            ))}
-            {loading && (
-              <div className="chat-msg loading">
-                <div className="cm-msg-text">
-                  <FontAwesomeIcon icon={faSpinner} spin /> Thinking...
-                </div>
-              </div>
-            )}
-            <div ref={chatEndRef} /> {/* Scroll to bottom */}
+
+        <div className={`chat-box ${chatVisible ? 'visible' : ''}`}>
+          <div className="chat-box-header">
+            Chat
+            <span className="chat-box-toggle" onClick={handleChatToggle}>
+              <FontAwesomeIcon icon={faX} size="xs" />
+            </span>
           </div>
-        </div>
-        <div className="chat-input">
-          <form onSubmit={handleSubmit}>
-            <div className="input-wrapper">
-              <input
-                type="text"
-                id="chat-input"
-                placeholder="Send a message..."
-                value={input}
-                onChange={handleInputChange}
-              />
-              <button
-                type="submit"
-                className="chat-submit"
-                id="chat-submit"
-              >
-                <FontAwesomeIcon icon={faArrowRight} />
-              </button>
+          <div className="chat-box-body">
+            <div className="chat-box-overlay"></div>
+            <div className="chat-logs">
+              {messages.map((msg, index) => (
+                <div key={index} className={`chat-msg ${msg.type}`}>
+                  <span className="msg-avatar">
+                    {msg.type === 'user' && <FontAwesomeIcon icon={faRobot} className="icon" />}
+                  </span>
+                  <div className="cm-msg-text">
+                    {msg.text.includes('mailto:') ? (
+                      <a href="#" onClick={handleEmailClick}>Sorry, I do not know what you're asking about. Please email your query</a>
+                    ) : (
+                      msg.text
+                    )}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="chat-msg loading">
+                  <div className="cm-msg-text">
+                    <FontAwesomeIcon icon={faSpinner} spin /> Thinking...
+                  </div>
+                </div>
+              )}
+              <div ref={chatEndRef} /> {/* Scroll to bottom */}
             </div>
-          </form>
+          </div>
+          <div className="chat-input">
+            <form onSubmit={handleSubmit}>
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  id="chat-input"
+                  placeholder="Send a message..."
+                  value={input}
+                  onChange={handleInputChange}
+                />
+                <button
+                  type="submit"
+                  className="chat-submit"
+                  id="chat-submit"
+                >
+                  <FontAwesomeIcon icon={faArrowRight} />
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

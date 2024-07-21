@@ -4,6 +4,7 @@ import IndexNavbar from 'components/Navbars/IndexNavbar';
 import SearchBar from './SearchBar';
 import '../../assets/styles/index.css';
 import { useLocation } from 'react-router-dom';
+import ChatBox from 'components/ChatBot/Chat';
 
 const SearchRedirect = () => {
   const location = useLocation();
@@ -59,7 +60,7 @@ const SearchRedirect = () => {
       <SearchBar onSearch={handleSearch} onClear={handleClear} />
       {showResults && (
         <>
-          <h3 className='text-2xl font-bold mb-2 pl-10'>Search Results</h3>
+          <h3 className='text-2xl font-bold mb-2 pl-10 text-center'>Search Results</h3>
           <div className="mt-4 container">
             <div className="card border rounded p-4 bg-white shadow">
               {currentResults.length > 0 ? (
@@ -96,6 +97,7 @@ const SearchRedirect = () => {
         </>
       )}
       <Footer />
+      <ChatBox />
     </>
   );
 };
