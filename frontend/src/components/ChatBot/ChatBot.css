@@ -36,7 +36,6 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     flex-direction: column;
-    overflow: hidden;
 }
 
 .chat-box.visible {
@@ -59,16 +58,23 @@
 
 .chat-box-body {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: auto; /* Enable vertical scrolling */
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-logs {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    max-height: 100%; /* Ensure it grows within its container */
+    overflow-y: auto; /* Enable scrolling if needed */
 }
 
 .chat-msg {
+    display: flex;
+    align-items: flex-start;
     margin-bottom: 10px;
 }
 
@@ -84,6 +90,35 @@
     padding: 10px;
     background-color: #f1f1f1;
     border-radius: 10px;
+}
+
+/* Styles for the loading state */
+.chat-msg.loading {
+    justify-content: center;
+}
+
+.chat-msg.loading .cm-msg-text {
+    background: transparent;
+    color: #0056b3;
+    display: flex;
+    align-items: center;
+}
+
+.chat-msg.loading .cm-msg-text::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border-top: 2px solid transparent;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+/* Animation for loading spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .chat-input {
@@ -120,39 +155,11 @@
     color: #0056b3;
     font-size: 1rem;
 }
-.chat-msg {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-  
-  .msg-avatar {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-  }
-  
-  .icon {
+
+.icon {
     font-size: 1.5rem; /* Adjust size as needed */
-  }
-  
-  .cm-msg-text {
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 10px;
-  }
-  
-  .chat-box-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-  
-  .chat-input {
-    display: flex;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 0 0 10px 10px;
-    width: 100%;
-  }
-  
+}
+.cm-msg-text a {
+    color: #0056b3;
+    text-decoration: underline;
+}
