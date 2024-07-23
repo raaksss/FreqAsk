@@ -121,7 +121,7 @@ const ChatBox = () => {
                   className="chat-submit"
                   id="chat-submit"
                 >
-                  <FontAwesomeIcon icon={faArrowRight} />
+                  <FontAwesomeIcon icon={faArrowRight} /> 
                 </button>
               </div>
             </form>

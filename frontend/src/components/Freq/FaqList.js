@@ -6,6 +6,7 @@ import IndexNavbar from 'components/Navbars/IndexNavbar';
 import FAQItem from '../Freq/FAQItem';
 import NavigateFaq from '../Freq/NavigateFaq';
 import { useParams } from 'react-router-dom';
+import ChatBox from 'components/ChatBot/Chat';
 
 const FaqList = () => {
     const { categorySlug } = useParams(); 
@@ -14,14 +15,12 @@ const FaqList = () => {
   const [openFAQIndex, setOpenFAQIndex] = useState(null);
 
   useEffect(() => {
-    console.log("Category received from frontend:", categorySlug);
     fetchFAQs();
   }, [categorySlug]);
 
   const fetchFAQs = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/faqs/${categorySlug}`);
-      console.log("Fetched FAQs:", response.data);
       setFaqData(response.data);
     } catch (error) {
       console.error("Error fetching FAQs:", error);
@@ -52,6 +51,7 @@ const FaqList = () => {
         </div>
       </div>
       <Footer />
+      <ChatBox />
     </>
   );
 };
