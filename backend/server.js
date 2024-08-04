@@ -6,6 +6,7 @@
 
   const faqRoutes = require('./routes/faqRoutes');
   const chatbotRoutes = require('./routes/chatbotRoutes');
+  const Faq = require('./models/Faq');
 
 
   const app = express();
@@ -26,6 +27,13 @@
     })
     .catch(err => console.error('Error connecting to database:', err));
 
+    const initializeCache = async () => {
+      const faqs = await Faq.getAllFaqs();
+      faqCache.clear();
+      faqs.forEach(faq => faqCache.set(faq.id, faq));
+  };
+
+initializeCache().catch(err => console.error('Error initializing cache:', err));
 
   app.use('/api/faqs', faqRoutes);
   app.use('/api/chatbot', chatbotRoutes);
