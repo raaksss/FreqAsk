@@ -1,28 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const faqController = require('../controller/faqController');
+const cacheController = require('../controller/cacheController');
 
 // GET all FAQs or by category
-router.get('/', faqController.getFAQs);
+router.get('/', cacheController.getFAQs);
 
 //GET all FAQs by category
 
-router.get('/:categorySlug', faqController.getFAQsByCategorySlug);
+router.get('/:categorySlug', cacheController.getFAQsByCategorySlug);
 
 // GET a single FAQ by ID
-router.get('/faq/:id', faqController.getFAQById);
+router.get('/faq/:id', cacheController.getFAQById);
 
 // Create a new FAQ
-router.post('/', faqController.createFAQ);
+router.post('/', cacheController.createFAQ);
 
 // Update a FAQ by ID
-router.patch('/:id', faqController.updateFAQById);
+router.patch('/:id', cacheController.updateFAQById);
 
 // Delete a FAQ by ID
-router.delete('/:id', faqController.deleteFAQById);
+router.delete('/:id', cacheController.deleteFAQById);
 
 //Search a FAQ
-router.get('/wocat/search', faqController.searchFAQs);
+router.get('/wocat/search', cacheController.searchFAQs);
 
 
 module.exports = router;
